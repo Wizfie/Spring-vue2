@@ -17,7 +17,7 @@ import com.student.student.model.Student;
 import com.student.student.service.IStudentService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:8083")
 @RequestMapping("/api/student")
 public class StudentController {
 
