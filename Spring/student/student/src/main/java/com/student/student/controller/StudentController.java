@@ -12,12 +12,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.student.student.model.Student;
 import com.student.student.service.IStudentService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8083")
+@CrossOrigin(origins = "http://localhost:8080")
 @RequestMapping("/api/student")
 public class StudentController {
 
@@ -46,4 +45,9 @@ public class StudentController {
 	public Student deleteStudent(@PathVariable int id) {
 		return studentService.deleteStudent(id);
 	}
+	@GetMapping("/updateId/{id}")
+	public Student updatebyiStudent(@PathVariable long id){
+		return studentService.updateByiStudent(id);
+	}
+
 }

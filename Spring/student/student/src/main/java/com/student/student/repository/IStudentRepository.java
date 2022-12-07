@@ -9,4 +9,5 @@ public interface IStudentRepository {
 	public List<Student> getAllStudents();
 	public Student updateStudent(int id, Student student);
 	public Student deleteStudent(int id);
+	public Student updateByiStudent(long id);
 }

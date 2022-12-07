@@ -40,6 +40,12 @@ public class StudentService implements IStudentService{
         return studentRepository.deleteStudent(id);
     }
 
+    @Override
+    public Student updateByiStudent(long id) {
+        // TODO Auto-generated method stub
+        return studentRepository.updateByiStudent(id);
+    }
+
    
 
     

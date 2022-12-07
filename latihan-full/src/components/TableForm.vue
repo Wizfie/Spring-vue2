@@ -12,7 +12,7 @@
             <div class="form-row d-flex" >
               <div class="col-md-6 mb-3">
                 <label for="validationDefault01">Student Name</label>
-                <input v-model="studentData.nama" type="text" class="form-control" id="firstname" placeholder="Full Name" value="" >
+                <input v-model="studentData.nama" type="text" class="form-control" id="nama" placeholder="Full Name" value="" >
               </div>
               <div class="col-md-6 mb-3">
                 <label for="validationDefault02">Soft Skill</label>
@@ -29,8 +29,8 @@
                     <label for="validationDefault02">Gender</label>
                     <select v-model="studentData.jenis_kelamin" class="custom-select" id="inputGroupSelect02">
                     <option selected>Pilih:</option>
-                    <option value="1">Male</option>
-                    <option value="2">Female</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
                   </select>
                 </div>
                 <div class="col-md-6 mb-3">
@@ -50,11 +50,11 @@
                   <label for="Interest">Interest</label>
                   <select v-model="studentData.interest" class="custom-select" id="inputGroupSelect02">
                     <option selected>Pilih :</option>
-                    <option value="1">Web Frontend</option>
-                    <option value="2">Web Backend</option>
-                    <option value="3">Mobile Apps</option>
-                    <option value="4">Network</option>
-                    <option value="5">Data Science</option>
+                    <option value="Web Frontend">Web Frontend</option>
+                    <option value="Web Backend">Web Backend</option>
+                    <option value="Mobile Apps">Mobile Apps</option>
+                    <option value="Network">Network</option>
+                    <option value="Data Science">Data Science</option>
                   </select>
                   
                 </div>
@@ -125,17 +125,32 @@ export default {
                         .then(response => {
                             console.log(response.data);
                             this.success = true;
+
+
                         })
                         .catch(e => {
                             console.log(e);
                         });
                 }
             },
+            getStudentId(id){
+              studentService.updateStudentId(id).then(response => {
+                this.studentData = response.data;
+              })
+              .catch(e =>{
+                console.log(e);
+              })
+            }
         },
         components:{
-          SuccessForm
+          SuccessForm,
         },
-        props:["studentDataProps"],
+        mounted(){
+          if(this.$route.name == 'updateData'){
+            this.getStudentId(this.$route.params.id);
+            this.buttonValue = "updated"
+          }
+        },
         watch:{
           'studentDataProps'(newValue) {
             this.studentData = newValue;

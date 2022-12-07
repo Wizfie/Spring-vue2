@@ -18,6 +18,9 @@ class studentService {
     updateStudent(id,data){
         return http.put(`student/update/${id}`,data)
     }
+    updateStudentId(id){
+        return http.get(`/student/updateId/${id}`)
+    }
 
 }
 
