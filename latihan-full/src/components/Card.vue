@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex" >
+  <div class="d-flex align-content-start flex-wrap" >
     <div v-for="(item,index) in studentData" :key="item.id">
         <div class="card border border-primary d-flex  m-5" style="width: 18rem; ">
         <div class="card-body " >
@@ -34,6 +34,7 @@
 
 <script>
 import StudentService from "../Services/studentService"
+import Swal from 'sweetalert2'
 export default {
     name:"CardData",
     methods: {
@@ -47,20 +48,66 @@ export default {
         });
       },
 
-      deleteStudentFunc(id){
-        if(confirm("Apakah anda yakin hapus?")){
-          StudentService.deleteStudent(id).then(response =>{
-            console.log(response.data);
-          })
-          .catch(e => {
-            console.log(e);
-          })
-          location.reload()
-        }else{
-          alert("Hapus dibatalkan")
-        }
-      }
-  },
+      deleteStudentFunc(id,index){
+        // if(confirm("Apakah anda yakin hapus?")){
+          // StudentService.deleteStudent(id)
+          // .then(response =>{
+          //   console.log(response.data);
+          //   this.studentData.splice(index,1)
+          // })
+          // .catch(e => {
+          //   console.log(e);
+          // })
+        //   swal("Good job!", "Delete ", "success");
+        // }else{
+        //   alert("Hapus dibatalkan")
+        // }
+            const swalWithBootstrapButtons = Swal.mixin({
+          customClass: {
+            confirmButton: 'btn btn-success ',
+            cancelButton: 'btn btn-danger '
+            
+            
+          },
+          buttonsStyling: true
+        })
+
+        swalWithBootstrapButtons.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Yes, delete it!',
+          cancelButtonText: 'No, cancel!',
+          reverseButtons: true
+           }).then((result) => {
+          if (result.isConfirmed) {
+            StudentService.deleteStudent(id)
+                  .then(response =>{
+                    console.log(response.data);
+                    this.studentData.splice(index,1)
+                  })
+                  .catch(e => {
+                    console.log(e);
+                  })
+            swalWithBootstrapButtons.fire(
+              'Deleted!',
+              'Your file has been deleted.',
+              'success'
+            )
+          } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+          ) {
+            swalWithBootstrapButtons.fire(
+              'Cancelled',
+              'Your imaginary file is safe :)',
+              'error'
+            )
+          }
+        })
+              }
+          },
   mounted(){
     this.getStudent();
   },

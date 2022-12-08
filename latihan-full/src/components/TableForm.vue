@@ -4,7 +4,7 @@
   <button id="myButton" class="btn btn-primary m-3">Back</button>
 </router-link>
   <div> 
-    <div v-show="!success" class=" p-4 border border-primary"  style="width: fit-content; margin: auto; margin-top: 5%;" >
+    <div  class=" p-4 border border-primary"  style="width: fit-content; margin: auto; margin-top: 5%;" >
         <div>
              <h1 class="text-center">Add Student</h1>
         </div>
@@ -77,8 +77,9 @@
   
             
         </div>
+        
     
-              <SuccessForm v-show="success"></SuccessForm>
+              <!-- <SuccessForm v-show="success"></SuccessForm> -->
     </div>
  </div>
 </template>
@@ -86,7 +87,8 @@
 <script>
 
 import studentService from "../Services/studentService.js"
-import SuccessForm from "./SuccessForm.vue"
+// import SuccessForm from "./SuccessForm.vue"
+import Swal from 'sweetalert2'
 
 
 export default {
@@ -115,40 +117,59 @@ export default {
                     studentService.create(data)
                         .then(response => {
                             console.log(response.data);
-                            this.success = true;
-                        })
-                        .catch(e => {
-                            console.log(e);
                         });
+                        Swal.fire({
+                          position: 'center',
+                          icon: 'success',
+                          title: 'Your work has been saved',
+                          timer: 2000,
+                          timerProgressBar:true,
+                        }).then(()=>{
+                          this.$router.push("/")
+                        // .catch(() => {
+                        //     this.$router.push("/")
+                        })
+                        
+                        
                 }else{
                     studentService.updateStudent(data.id, data)
                         .then(response => {
                             console.log(response.data);
-                            this.success = true;
-
-
                         })
-                        .catch(e => {
-                            console.log(e);
-                        });
+                        Swal.fire({
+                          position: 'center',
+                          icon: 'success',
+                          title: 'Your work has been saved',
+                          timer: 2000,
+                          timerProgressBar:true,
+                        }).then(()=>{
+                          this.$router.push("/")
+                        // .catch(() => {
+                        //     this.$router.push("/")
+                        })
+                        // .catch(e => {
+                        //     console.log(e);
+                        // });
                 }
             },
             getStudentId(id){
               studentService.updateStudentId(id).then(response => {
                 this.studentData = response.data;
               })
+              
               .catch(e =>{
                 console.log(e);
               })
+              
             }
         },
         components:{
-          SuccessForm,
+          // SuccessForm,
         },
         mounted(){
           if(this.$route.name == 'updateData'){
             this.getStudentId(this.$route.params.id);
-            this.buttonValue = "updated"
+            this.buttonValue = "Update"
           }
         },
         watch:{

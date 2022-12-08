@@ -3,7 +3,7 @@ import Home from './Pages/Home.vue'
 import Update from './Pages/Update.vue'
 
 export default [
-    {   path:"",
+    {   path:"/",
         component:Home,
 
     },
