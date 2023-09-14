@@ -13,7 +13,8 @@ public class Student {
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
+
+
 	private String deskripsi_diri;
 	private String email;
 	private String hard_skill;

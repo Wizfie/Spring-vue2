@@ -17,7 +17,6 @@ public class StudentRepository implements IStudentRepository{
 
     @Override
     public Student insertStudent(Student student) {
-        // TODO Auto-generated method stub
 
         String query = "INSERT INTO tb_student(deskripsi_diri, email, hard_skill, interest, jenis_kelamin, nama,soft_skill,umur) "
 				+ "VALUES(?,?,?,?,?,?,?,?)";
@@ -29,7 +28,6 @@ public class StudentRepository implements IStudentRepository{
 
     @Override
     public List<Student> getAllStudents() {
-        // TODO Auto-generated method stub
         String query = "SELECT * FROM tb_student";
 		return jdbcTemplate.query(query, new BeanPropertyRowMapper<>(Student.class));
 	}
@@ -37,7 +35,6 @@ public class StudentRepository implements IStudentRepository{
 
     @Override
     public Student updateStudent(int id, Student student) {
-        // TODO Auto-generated method stub
        String query = "UPDATE tb_student SET deskripsi_diri = ?, email = ?, hard_skill = ?, interest = ?, jenis_kelamin = ?, nama = ?, soft_skill = ? ,umur = ? WHERE id = ?";
 		
                 jdbcTemplate.update(query, new Object[] {student.getDeskripsi_diri(), student.getEmail(), student.getHard_skill(),
@@ -47,7 +44,6 @@ public class StudentRepository implements IStudentRepository{
 
     @Override
     public Student deleteStudent(int id) {
-        // TODO Auto-generated method stub
         String query = "SELECT * FROM tb_student WHERE id = ?";
 		var result = jdbcTemplate.queryForObject(query, new BeanPropertyRowMapper<>(Student.class), id);
 		
@@ -59,8 +55,7 @@ public class StudentRepository implements IStudentRepository{
 
     @Override
     public Student updateByiStudent(long id) {
-        // TODO Auto-generated method stub
-        String query = "SELECT * FROM tb_student WHERE id = ?";      
+        String query = "SELECT * FROM tb_student WHERE id = ?";
           return jdbcTemplate.queryForObject(query, new BeanPropertyRowMapper<>(Student.class), id);
           
     }

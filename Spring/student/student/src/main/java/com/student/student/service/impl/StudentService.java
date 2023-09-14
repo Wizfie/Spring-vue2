@@ -18,31 +18,26 @@ public class StudentService implements IStudentService{
 
     @Override
     public Student insertStudent(Student student) {
-        // TODO Auto-generated method stub
         return studentRepository.insertStudent(student);
     }
 
     @Override
     public List<Student> getAllStudent() {
-        // TODO Auto-generated method stub
         return studentRepository.getAllStudents();
     }
 
     @Override
     public Student updateStudent(int id, Student student) {
-        // TODO Auto-generated method stub
         return studentRepository.updateStudent(id, student);
     }
 
     @Override
     public Student deleteStudent(int id) {
-        // TODO Auto-generated method stub
         return studentRepository.deleteStudent(id);
     }
 
     @Override
     public Student updateByiStudent(long id) {
-        // TODO Auto-generated method stub
         return studentRepository.updateByiStudent(id);
     }
 
